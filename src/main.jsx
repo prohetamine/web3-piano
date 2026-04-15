@@ -13,7 +13,7 @@ const config = {
     icons: ['https://piano.prohetamine.ru/icon.svg']
   },
   projectId: '1febfd92481d4ea997711d2ac4a363c0',
-  host: '/web3-piano-testnet-0/'
+  host: '/web3-piano-testnet-00/'
 }
 
 createRoot(document.getElementById('root')).render(
