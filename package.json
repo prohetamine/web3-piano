@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
-    "@prohetamine/redstone": "^0.1.4",
+    "@prohetamine/redstone": "^0.1.523",
     "@rooks/use-window-size": "^4.11.2",
     "framer-motion": "^12.29.2",
     "react": "^19.2.0",

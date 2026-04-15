@@ -76,8 +76,22 @@ const Piano = ({ trackData, onPlaylist }) => {
 
     const { address, isConnected, open } = Redstone.useApp()
 
-    const track = Redstone.useReadListItem('playlist', { chainId, index }, { cache: 60000, load: !!trackData?.chainId, watch: false, stas: !isLocal, once: !isLocal, self: !!isLocal })
-        , playlist = Redstone.useList('playlist', { cache: 60000, load: false, stas: false, self: true })
+    const track = Redstone.useReadListItem('playlist', { chainId, index }, { 
+            cache: 60000, 
+            load: !!trackData?.chainId, 
+            watch: false, 
+            stas: !isLocal, 
+            once: !isLocal, 
+            self: !!isLocal, 
+            paymentAddress: '0xbcfA1b80C39F9a378b12b257934BE409Bc93eC60' 
+        })
+        , playlist = Redstone.useList('playlist', { 
+            cache: 60000, 
+            load: false, 
+            stas: false, 
+            self: true,
+            paymentAddress: '0xbcfA1b80C39F9a378b12b257934BE409Bc93eC60' 
+        })
         , [isUploadTrack, setUploadTrack] = useState(false)
     
     const author = Redstone.useNote(`author`, { value: address, self: true, selfRead: true, cache: 0 })

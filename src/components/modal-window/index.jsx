@@ -215,20 +215,23 @@ export const Playlist = ({ onSelect, onClose }) => {
   const playlist = Redstone.useList('playlist', { 
     cache: 600000, 
     stas: isConnected ? !isLocal : true,
+    paymentAddress: '0xbcfA1b80C39F9a378b12b257934BE409Bc93eC60',
     self: isConnected ? isLocal : false,
     once: isConnected ? !isLocal : true,
     watch: false
   })
 
-  const publicPlaylist = Redstone.useList('playlist', { 
+  const playlistControl = Redstone.useList('playlist', { 
     stas: true,
+    paymentAddress: '0xbcfA1b80C39F9a378b12b257934BE409Bc93eC60',
     self: false,
     once: true,
-    load: false
+    load: false,
+    watch: false
   })
 
   const confirm = useStasPay() 
-      , cert = Redstone.useCertificate('playlist')
+      , cert = Redstone.useCertificate('playlist', { paymentAddress: '0xbcfA1b80C39F9a378b12b257934BE409Bc93eC60' })
 
   const tracks = useMemo(() => {
     const tracks = formatPianoData(playlist.value)
@@ -370,6 +373,8 @@ export const Playlist = ({ onSelect, onClose }) => {
                                     alert('Error')
                                 }
 
+                                console.log(_cert)
+
                                 if (_cert.value === 0) {
                                     const commission = await cert.getCommission()
                                         , isConfirm = await confirm(commission)
@@ -380,7 +385,7 @@ export const Playlist = ({ onSelect, onClose }) => {
                                     await cert.updateValue(100)
                                 }
 
-                                const commission = await playlist.getCommission()
+                                const commission = await playlistControl.getCommission()
                                 const isConfirm = await confirm(commission)
 
                                 if (!isConfirm) {
@@ -388,7 +393,7 @@ export const Playlist = ({ onSelect, onClose }) => {
                                 }
 
                                 const data = `${track.title.slice(0, 60).replace(/,/gi, '').replace(/"/, '')},${track.date},${track.notes.join(',')}`
-                                const isAddPublicTrack = await publicPlaylist.addValue(data)
+                                const isAddPublicTrack = await playlistControl.addValue(data)
                               
                                 if (isAddPublicTrack) {
                                   setHide(true)
