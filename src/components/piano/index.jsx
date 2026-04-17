@@ -196,7 +196,6 @@ const Piano = ({ trackData, onPlaylist }) => {
                             return
                         }
                         
-                        setUploadAuthorName(true)
                         const [isConfirm, name] = await showModalWindow({
                             title: 'Author',
                             description: 'Write author name',
@@ -212,6 +211,8 @@ const Piano = ({ trackData, onPlaylist }) => {
                                 response: false
                             }]
                         })
+                        
+                        setUploadAuthorName(true)
                         
                         if (isConfirm && name !== author.value) {
                             const isUpload = await author.updateValue(name) 
